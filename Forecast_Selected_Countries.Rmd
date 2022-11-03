@@ -1,0 +1,286 @@
+---
+title:"Project"
+author: "Amaya Batuwantudawe, 300548077"
+
+---
+
+ 
+
+```{r}
+library(utils)
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(forecast)
+library(fpp2)
+library(TTR)
+library(forecast)
+library(Metrics)
+library(vars)
+
+
+COVID_ALL <- read.csv("countries-aggregated.csv")
+
+```
+
+
+```{r}
+glimpse(COVID_ALL)
+
+```
+```{r}
+
+plot(COVID_ALL)
+```
+
+
+
+
+```{r}
+COVID_USA   = COVID_ALL[COVID_ALL$Country=='US',]
+COVID_USA_ts   = ts(COVID_USA)
+
+theme_set(theme_bw())
+autoplot(COVID_USA_ts) +
+  ggtitle("Time Series Plot of Covid 19 Data") +
+  theme(plot.title = element_text(hjust = 0.5)) #for centering the text
+
+keeps <- c("Date","Deaths","Confirmed")
+plot(COVID_USA[keeps])
+
+
+# splitting data into histroy and valid sets
+hist_ts = COVID_USA_ts[1:500,]
+valid_ts = COVID_USA_ts[501:nrow(data),]
+
+
+
+deaths_forcast_ts <- forecast(hist_USA_ts[,5], h=5)
+deaths_forcast_ts
+deaths_forcast_ts$mean[1:5]
+deaths_actual_ts <- valid_USA_ts[1:5,5]
+deaths_actual_ts 
+deaths_forcast_ts$model
+
+rmse = rmse(as.double(unlist(deaths_actual_ts)), as.double(unlist(deaths_forcast_ts$mean[1:5])))
+rmse
+
+
+confirmed_forcast_ts <- forecast(hist_ts[,3], h=5)
+confirmed_forcast_ts
+confirmed_forcast_ts$mean[1:5]
+confirmed_actual_ts <- valid_ts[1:5,3]
+confirmed_actual_ts
+confirmed_forcast_ts$model
+
+rmse = rmse(as.double(unlist(confirmed_actual_ts)), as.double(unlist(confirmed_forcast_ts$mean[1:5])))
+rmse
+
+COVID_USA[501:505,1]
+
+
+forecast_confirmed = forecast(hist_ts[,3],h=80)
+forecast_Deaths = forecast(hist_ts[,5],h=80)
+
+plot(forecast_confirmed, main = paste("Forecasts Confirmed Cases from", unique(forecast_confirmed$method)), xlab = "time")
+
+plot(forecast_Deaths, main = paste("Forecasts Deaths from", unique(forecast_Deaths$method)), xlab = "time")
+
+
+
+
+```
+
+
+
+
+
+
+```{r}
+
+COVID_INDIA  = COVID_ALL[COVID_ALL$Country=='India',]
+COVID_INDIA_ts  = ts(COVID_INDIA)
+
+
+theme_set(theme_bw())
+autoplot(COVID_INDIA_ts) +
+  ggtitle("Time Series Plot of Covid 19 Data") +
+  theme(plot.title = element_text(hjust = 0.5)) #for centering the text
+
+keeps <- c("Date","Deaths","Confirmed")
+plot(COVID_INDIA[keeps])
+
+
+# splitting data into histroy and valid sets
+hist_ts = COVID_INDIA_ts[1:500,]
+valid_ts = COVID_INDIA_ts[501:nrow(data),]
+
+
+
+deaths_forcast_ts <- forecast(hist_ts[,5], h=5)
+deaths_forcast_ts
+deaths_forcast_ts$mean[1:5]
+deaths_actual_ts <- valid_ts[1:5,5]
+deaths_actual_ts 
+deaths_forcast_ts$model
+
+rmse = rmse(as.double(unlist(deaths_actual_ts)), as.double(unlist(deaths_forcast_ts$mean[1:5])))
+rmse
+
+
+
+confirmed_forcast_ts <- forecast(hist_ts[,3], h=5)
+confirmed_forcast_ts
+confirmed_forcast_ts$mean[1:5]
+confirmed_actual_ts <- valid_ts[1:5,3]
+confirmed_actual_ts
+confirmed_forcast_ts$model
+
+rmse = rmse(as.double(unlist(confirmed_actual_ts)), as.double(unlist(confirmed_forcast_ts$mean[1:5])))
+rmse
+
+COVID_INDIA[501:505,1]
+
+
+forecast_confirmed = forecast(hist_ts[,3],h=80)
+forecast_Deaths = forecast(hist_ts[,5],h=80)
+
+plot(forecast_confirmed, main = paste("Forecasts Confirmed Cases from", unique(forecast_confirmed$method)), xlab = "time")
+
+plot(forecast_Deaths, main = paste("Forecasts Deaths from", unique(forecast_Deaths$method)), xlab = "time")
+
+
+
+```
+
+
+```{r}
+COVID_NEWZEALAND= COVID_ALL[COVID_ALL$Country=='New Zealand',]
+COVID_NEWZEALAND_ts = ts(COVID_NEWZEALAND)
+
+
+theme_set(theme_bw())
+autoplot(COVID_NEWZEALAND_ts) +
+  ggtitle("Time Series Plot of Covid 19 Data") +
+  theme(plot.title = element_text(hjust = 0.5)) #for centering the text
+
+keeps <- c("Date","Deaths","Confirmed")
+plot(COVID_NEWZEALAND[keeps])
+
+
+# splitting data into histroy and valid sets
+hist_ts = COVID_NEWZEALAND_ts[1:500,]
+valid_ts = COVID_NEWZEALAND_ts[501:nrow(data),]
+
+
+
+deaths_forcast_ts <- forecast(hist_ts[,5], h=5)
+deaths_forcast_ts
+deaths_forcast_ts$mean[1:5]
+deaths_actual_ts <- valid_ts[1:5,5]
+deaths_actual_ts 
+deaths_forcast_ts$model
+
+
+rmse = rmse(as.double(unlist(deaths_actual_ts)), as.double(unlist(deaths_forcast_ts$mean[1:5])))
+rmse
+
+
+
+confirmed_forcast_ts <- forecast(hist_ts[,3], h=5)
+confirmed_forcast_ts
+confirmed_forcast_ts$mean[1:5]
+confirmed_actual_ts <- valid_ts[1:5,3]
+confirmed_actual_ts
+confirmed_forcast_ts$model
+
+rmse = rmse(as.double(unlist(confirmed_actual_ts)), as.double(unlist(confirmed_forcast_ts$mean[1:5])))
+rmse
+
+COVID_NEWZEALAND[501:505,1]
+
+
+forecast_confirmed = forecast(hist_ts[,3],h=80)
+forecast_Deaths = forecast(hist_ts[,5],h=80)
+
+plot(forecast_confirmed, main = paste("Forecasts Confirmed Cases from", unique(forecast_confirmed$method)), xlab = "time")
+
+plot(forecast_Deaths, main = paste("Forecasts Deaths from", unique(forecast_Deaths$method)), xlab = "time")
+```
+
+
+
+```{r}
+
+COVID_ITALY = COVID_ALL[COVID_ALL$Country=='Italy',]
+COVID_ITALY_ts = ts(COVID_ITALY)
+
+
+theme_set(theme_bw())
+autoplot(COVID_ITALY_ts) +
+  ggtitle("Time Series Plot of Covid 19 Data") +
+  theme(plot.title = element_text(hjust = 0.5)) #for centering the text
+
+keeps <- c("Date","Deaths","Confirmed")
+plot(COVID_ITALY[keeps])
+
+
+# splitting data into histroy and valid sets
+hist_ts = COVID_ITALY_ts[1:500,]
+valid_ts = COVID_ITALY_ts[501:nrow(data),]
+
+
+
+deaths_forcast_ts <- forecast(hist_ts[,5], h=5)
+deaths_forcast_ts
+deaths_forcast_ts$mean[1:5]
+deaths_actual_ts <- valid_ts[1:5,5]
+deaths_actual_ts 
+deaths_forcast_ts$model
+
+
+rmse = rmse(as.double(unlist(deaths_actual_ts)), as.double(unlist(deaths_forcast_ts$mean[1:5])))
+rmse
+
+
+
+confirmed_forcast_ts <- forecast(hist_ts[,3], h=5)
+confirmed_forcast_ts
+confirmed_forcast_ts$mean[1:5]
+confirmed_actual_ts <- valid_ts[1:5,3]
+confirmed_actual_ts
+confirmed_forcast_ts$model
+
+rmse = rmse(as.double(unlist(confirmed_actual_ts)), as.double(unlist(confirmed_forcast_ts$mean[1:5])))
+rmse
+
+COVID_ITALY[501:505,1]
+
+
+forecast_confirmed = forecast(hist_ts[,3],h=80)
+forecast_Deaths = forecast(hist_ts[,5],h=80)
+
+plot(forecast_confirmed, main = paste("Forecasts Confirmed Cases from", unique(forecast_confirmed$method)), xlab = "time")
+
+plot(forecast_Deaths, main = paste("Forecasts Deaths from", unique(forecast_Deaths$method)), xlab = "time")
+
+
+
+```
+
+
+
+
+
+
+```{r}
+countries <-unique(COVIDRaw$Country)
+countries
+```
+
+
+
+
+
+
+
